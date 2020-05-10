@@ -35,12 +35,12 @@ class CreateLeasesTable extends Migration
      */
     public function down()
     {
-        Schema::table('phones', function (Blueprint $table) {
+        Schema::table('leases', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropForeign(['book_id']);
 
         });
-        // Schema::dropIfExists('leases');
+        Schema::dropIfExists('leases');
 
     }
 }
