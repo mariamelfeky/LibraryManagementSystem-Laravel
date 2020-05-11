@@ -16,6 +16,6 @@ Route::get('/', function () {
 });
 
 Route::resource('book', 'BooksController');
+Route::resource('category', 'CategoriesController');
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');

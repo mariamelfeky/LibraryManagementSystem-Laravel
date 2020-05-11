@@ -6,7 +6,7 @@
     </head>
     <body>
         <div class="myform">
-            {!! Form::open(['route' => 'book.store','files' => 'true','enctype'=>'multipart/form-data']) !!}
+            {!! Form::model($book,['route' =>['book.update',$book],'enctype'=>'multipart/form-data','method' => 'put']) !!}
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Title</span>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div><span class="text-white">{{$errors->first('image')}}</span></div>
-                {!! Form::submit('Add A Book',['class'=>'btn btn-primary'])  !!}
+                {!! Form::submit('Update',['class'=>'btn btn-primary'])  !!}
 
             {!! Form::close() !!}
         </div>

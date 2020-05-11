@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\Category;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
@@ -14,7 +15,8 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //
+        $books=Book::all();
+        return view('Books.index',['books' => $books]);
     }
 
     /**
@@ -24,7 +26,8 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('Books.create');
+        $categories=Category::all();
+        return view('Books.create',['categories' => $categories]);
     }
 
     /**
@@ -35,15 +38,32 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $this->validate($request,[
-            'title' => 'required|unique:Books',
+        $data=$this->validate($request,[
+            'title' => 'required|unique:books',
             'details' => 'required',
             'auther' => 'required',
-            'copies'=>'required|number',
+            'copies'=>'required|numeric',
             'price'=>'required',
-            'image'=>'required|image'
+            'image'=>'required',
+            'category_id'=>'required|numeric',
         ]);
-        $Book = book::create($validatedData);
+        $Book= new Book();
+        $Book->title=$request->title;
+        $Book->details=$request->details;
+        $Book->auther=$request->auther;
+        $Book->copies=$request->copies;
+        $Book->price=$request->price;
+        $Book->category_id=$request->category_id;
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();  
+            $request->image->move(public_path('images'), $imageName);
+            $Book->image=$imageName;
+        }
+        $Book->save();
+        return redirect()->action(
+            'BooksController@index'
+        );
+
     }
 
     /**
@@ -54,7 +74,8 @@ class BooksController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        $category=Category::where("id","=",$book->category_id)->get();
+        return view('Books.show',['book'=>$book,'category'=>$category]);
     }
 
     /**
@@ -65,7 +86,8 @@ class BooksController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        $categories=Category::all();
+        return view('Books.edit',['book'=> $book,'categories' => $categories]);
     }
 
     /**
@@ -75,9 +97,32 @@ class BooksController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, Book $Book)
     {
-        //
+        $data=$this->validate($request,[
+            'title' => 'required',
+            'details' => 'required',
+            'auther' => 'required',
+            'copies'=>'required|numeric',
+            'price'=>'required',
+            'image'=>'required',
+            'category_id'=>'required|numeric',
+        ]);
+        $Book->title=$request->title;
+        $Book->details=$request->details;
+        $Book->auther=$request->auther;
+        $Book->copies=$request->copies;
+        $Book->price=$request->price;
+        $Book->category_id=$request->category_id;
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();  
+            $request->image->move(public_path('images'), $imageName);
+            $Book->image=$imageName;
+        }
+        $Book->save();
+        return redirect()->action(
+            'BooksController@index'
+        );    
     }
 
     /**
@@ -86,8 +131,12 @@ class BooksController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return redirect()->action(
+            'BooksController@index'
+        );   
     }
 }
