@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCtegoryIdInBookTable extends Migration
+class AddCaregoriesForeignkeyBooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,8 +16,8 @@ class AddCtegoryIdInBookTable extends Migration
         Schema::table('books', function (Blueprint $table) {
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')
-                  ->references('id')->on('categories')
-                  ->onDelete('cascade');
+                   ->references('id')->on('categories')
+                   ->onDelete('cascade');
         });
     }
 
@@ -29,7 +29,7 @@ class AddCtegoryIdInBookTable extends Migration
     public function down()
     {
         Schema::table('books', function (Blueprint $table) {
-            //
+            $table->dropForeign(['category_id']);
         });
     }
 }

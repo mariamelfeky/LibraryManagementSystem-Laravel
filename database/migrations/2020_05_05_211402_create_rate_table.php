@@ -35,12 +35,12 @@ class CreateRateTable extends Migration
      */
     public function down()
     {
-        Schema::table('phones', function (Blueprint $table) {
+        Schema::table('rates', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropForeign(['book_id']);
             $table->dropColumn(['rate']);
 
         });
-        // Schema::dropIfExists('rates');
+        Schema::dropIfExists('rates');
     }
 }
