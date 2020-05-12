@@ -24,7 +24,8 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('Categories.create');
+        $categories=Category::all();
+        return view('Categories.create',['categories' => $categories]);
     }
 
     /**
@@ -41,6 +42,9 @@ class CategoriesController extends Controller
         $category=new Category();
         $category->name=$request->name;
         $category->save();
+        return redirect()->action(
+            'CategoriesController@create'
+        );   
 
     }
 
@@ -86,6 +90,9 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->action(
+            'CategoriesController@create'
+        );   
     }
 }
