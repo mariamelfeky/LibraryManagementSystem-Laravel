@@ -5,6 +5,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </head>
     <body>
+    <div style="background-color:lightskyblue;text-align:center;"><div style="display:inline-block;"><h1 style="color:white;">ALL BOOKS</h1></div><div style="float:right;display:inline-block;" class="mt-2 mr-2"><a href="{{route('book.create')}}" class="btn btn-primary">Add A Book</a></div></div>
         @if ($books->count())
         <div class="row text-center" >
             @foreach($books as $book)
