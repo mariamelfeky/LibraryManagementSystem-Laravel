@@ -11,11 +11,15 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('book', 'BooksController');
+Route::resource('category', 'CategoriesController');
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/sort/{sort_value}', 'HomeController@sort');
+Route::post('/search', 'HomeController@search');
 Route::resource('user', 'UserController');
