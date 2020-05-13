@@ -70,11 +70,11 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
        $user = User::find($id);
-       dd($user);
-    //    $user->name = $request->name;
-    //    $user->email = $request->email;
-    //    $user->save();
-    //    return redirect()->route('user.show');
+    //    dd($user);
+       $user->name = $request->name;
+       $user->email = $request->email;
+       $user->save();
+       return redirect()->route('user.show',['user'=>User::find($id)]);
 
     }
 
