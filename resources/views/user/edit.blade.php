@@ -3,7 +3,7 @@
 @section('content')
 
 <section class="container">
-    <form action="{{ route('user.update',['user'=> Auth::id()]) }}" method="POST">
+    <form action="{{ route('user.update',['user'=> Auth::id()]) }}" method="PUT">
         {{ csrf_field() }}
 
         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}" style=" margin:10px auto;">
