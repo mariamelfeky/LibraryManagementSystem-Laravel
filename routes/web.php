@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -19,6 +20,7 @@ Route::resource('book', 'BooksController');
 Route::resource('category', 'CategoriesController');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+<<<<<<< HEAD
 Route::resource('user', 'UserController');
 
 
@@ -48,3 +50,8 @@ Route::get('userList', function () {
 Route::get('managerProfile', function () {
     return view('managers.managerProfile');
 });
+=======
+Route::get('/sort/{sort_value}', 'HomeController@sort');
+Route::post('/search', 'HomeController@search');
+Route::resource('user', 'UserController');
+>>>>>>> a7d31c223634c6349145cc7390efe0a9ceed6a6f

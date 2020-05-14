@@ -3,14 +3,16 @@
 @section('content')
 
 <section class="container">
-    <form action="{{ route('user.update',['user'=> Auth::id()]) }}" method="POST">
+    {{-- <form action="{{ route('user.update',['user'=> Auth::id()]) }}" method="PUT"> --}}
+        {!! Form::model($user, ['route'=> ['user.update',$user], 'method'=> 'PUT']) !!}
+
         {{ csrf_field() }}
 
         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}" style=" margin:10px auto;">
             <label for="name" class="col-md-4 control-label">Name</label>
 
             <div class="col-md-6">
-                <input style=" margin-top:10px; padding:10px;" id="name" type="text" class="form-control" name="name" value="{{ $user->name}}" autofocus>
+                {!! Form::text('name', null, ['class'=> 'form-control', 'placeholder'=> 'your address']) !!}
 
                 @if ($errors->has('name'))
                     <span class="help-block">
@@ -23,7 +25,7 @@
             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
             <div class="col-md-6">
-                <input style=" margin-top:20px; padding:10px;" id="email" type="email" class="form-control" name="email" value="{{ $user->email}}">
+                {!! Form::text('email', null, ['class'=> 'form-control', 'placeholder'=> 'your address']) !!}
 
                 @if ($errors->has('email'))
                     <span class="help-block">
@@ -35,12 +37,14 @@
 <br/>
         <div class="form-group" >
             <div class="col-md-6 col-md-offset-4">
-                <button type="submit" class="btn btn-primary" style=" margin:10px auto;">
+                {!! Form::submit('Update', ['class'=>'btn btn-primary']) !!} 
+
+                {{-- <button type="submit" class="btn btn-primary" style=" margin:10px auto;">
                     Update
-                </button>
+                </button> --}}
             </div>
         </div>
-    </form>
-</section>
+        {!! Form::close() !!}
+    </section>
 
 @endsection

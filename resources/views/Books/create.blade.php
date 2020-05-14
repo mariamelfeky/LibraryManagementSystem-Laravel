@@ -57,6 +57,9 @@
                             @endforeach   
                         @endif
                     </select>
+                    <div class="input-group-append">
+                        <a href="{{route('category.create')}}" class="btn btn-info">Add A Category</a>
+                    </div>
                 </div>
                 <div><span class="text-white">{{$errors->first('category_id')}}</span></div>
                 <div class="input-group mb-3">
